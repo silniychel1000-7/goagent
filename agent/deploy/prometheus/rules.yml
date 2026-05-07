@@ -1,0 +1,39 @@
+groups:
+  - name: network_alerts
+    interval: 30s
+    rules:
+
+      # ── Host down ──────────────────────────────────────────────────────────
+      - alert: HostDown
+        expr: network_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Host {{ $labels.target }} is unreachable"
+          description: >
+            The target {{ $labels.target }} has been unreachable for more than 1 minute.
+
+      # ── High latency ───────────────────────────────────────────────────────
+      - alert: HighLatency
+        expr: network_latency_ms > 100
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High latency to {{ $labels.target }}"
+          description: >
+            RTT to {{ $labels.target }} is {{ $value | printf "%.1f" }} ms
+            (threshold: 100 ms).
+
+      # ── Packet loss ────────────────────────────────────────────────────────
+      - alert: PacketLoss
+        expr: network_packet_loss > 20
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Packet loss on {{ $labels.target }}"
+          description: >
+            Packet loss to {{ $labels.target }} is {{ $value | printf "%.1f" }}%
+            (threshold: 20%).

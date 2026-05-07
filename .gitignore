@@ -1,0 +1,23 @@
+# binaries
+bin/
+*.exe
+*.out
+
+# logs
+*.log
+
+# env
+.env
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+
+# Go
+vendor/
+
+# Docker
+*.tar
