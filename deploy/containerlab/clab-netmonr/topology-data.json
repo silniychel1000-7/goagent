@@ -1,0 +1,222 @@
+{
+  "name": "netmonr",
+  "type": "clab",
+  "clab": {
+    "config": {
+      "prefix": "clab",
+      "mgmt": {
+        "network": "mgmt-net",
+        "bridge": "br-77e6cbbf906e",
+        "ipv4-subnet": "172.20.20.0/24",
+        "ipv4-gw": "172.20.20.1",
+        "ipv6-gw": "fe80::d49b:42ff:fee5:7e09",
+        "external-access": true
+      }
+    }
+  },
+  "ssh-pub-keys": [],
+  "nodes": {
+    "agent": {
+      "index": "0",
+      "shortname": "agent",
+      "longname": "clab-netmonr-agent",
+      "fqdn": "agent.netmonr.io",
+      "group": "",
+      "labdir": "/home/shenleit/projects/agent/deploy/containerlab/clab-netmonr/agent",
+      "kind": "linux",
+      "image": "go-agent:latest",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.20",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-77e6cbbf906e",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/shenleit/projects/agent/deploy/containerlab/clab-netmonr/agent",
+        "clab-node-longname": "clab-netmonr-agent",
+        "clab-node-name": "agent",
+        "clab-node-type": "",
+        "clab-owner": "shenleit",
+        "clab-topo-file": "/home/shenleit/projects/agent/deploy/containerlab/topology.clab.yml",
+        "containerlab": "netmonr"
+      },
+      "port-bindings": [
+        {
+          "host-ip": "0.0.0.0",
+          "host-port": 9100,
+          "port": 9100,
+          "protocol": "tcp"
+        },
+        {
+          "host-ip": "::",
+          "host-port": 9100,
+          "port": 9100,
+          "protocol": "tcp"
+        }
+      ]
+    },
+    "r1": {
+      "index": "1",
+      "shortname": "r1",
+      "longname": "clab-netmonr-r1",
+      "fqdn": "r1.netmonr.io",
+      "group": "",
+      "labdir": "/home/shenleit/projects/agent/deploy/containerlab/clab-netmonr/r1",
+      "kind": "linux",
+      "image": "frrouting/frr:latest",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.11",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-77e6cbbf906e",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/shenleit/projects/agent/deploy/containerlab/clab-netmonr/r1",
+        "clab-node-longname": "clab-netmonr-r1",
+        "clab-node-name": "r1",
+        "clab-node-type": "",
+        "clab-owner": "shenleit",
+        "clab-topo-file": "/home/shenleit/projects/agent/deploy/containerlab/topology.clab.yml",
+        "containerlab": "netmonr"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r2": {
+      "index": "2",
+      "shortname": "r2",
+      "longname": "clab-netmonr-r2",
+      "fqdn": "r2.netmonr.io",
+      "group": "",
+      "labdir": "/home/shenleit/projects/agent/deploy/containerlab/clab-netmonr/r2",
+      "kind": "linux",
+      "image": "frrouting/frr:latest",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.12",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-77e6cbbf906e",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/shenleit/projects/agent/deploy/containerlab/clab-netmonr/r2",
+        "clab-node-longname": "clab-netmonr-r2",
+        "clab-node-name": "r2",
+        "clab-node-type": "",
+        "clab-owner": "shenleit",
+        "clab-topo-file": "/home/shenleit/projects/agent/deploy/containerlab/topology.clab.yml",
+        "containerlab": "netmonr"
+      },
+      "port-bindings": [
+      ]
+    },
+    "r3": {
+      "index": "3",
+      "shortname": "r3",
+      "longname": "clab-netmonr-r3",
+      "fqdn": "r3.netmonr.io",
+      "group": "",
+      "labdir": "/home/shenleit/projects/agent/deploy/containerlab/clab-netmonr/r3",
+      "kind": "linux",
+      "image": "frrouting/frr:latest",
+      "mgmt-net": "",
+      "mgmt-intf": "",
+      "mgmt-ipv4-address": "172.20.20.13",
+      "mgmt-ipv4-prefix-length": 24,
+      "mgmt-ipv6-address": "",
+      "mgmt-ipv6-prefix-length": 0,
+      "mac-address": "",
+      "labels": {
+        "clab-mgmt-net-bridge": "br-77e6cbbf906e",
+        "clab-node-group": "",
+        "clab-node-kind": "linux",
+        "clab-node-lab-dir": "/home/shenleit/projects/agent/deploy/containerlab/clab-netmonr/r3",
+        "clab-node-longname": "clab-netmonr-r3",
+        "clab-node-name": "r3",
+        "clab-node-type": "",
+        "clab-owner": "shenleit",
+        "clab-topo-file": "/home/shenleit/projects/agent/deploy/containerlab/topology.clab.yml",
+        "containerlab": "netmonr"
+      },
+      "port-bindings": [
+      ]
+    }
+  },
+  "links": [
+    {
+      "endpoints": {
+        "a": {
+          "node": "r1",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:8a:84:c5",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r2",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:21:73:ae",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r1",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:43:87:16",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r3",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:f1:9d:81",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r2",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:0b:57:44",
+          "peer": "z"
+        },
+        "z": {
+          "node": "r3",
+          "interface": "eth2",
+          "mac": "aa:c1:ab:f6:b3:27",
+          "peer": "a"
+        }
+      }
+    },
+    {
+      "endpoints": {
+        "a": {
+          "node": "r1",
+          "interface": "eth3",
+          "mac": "aa:c1:ab:3d:cb:8d",
+          "peer": "z"
+        },
+        "z": {
+          "node": "agent",
+          "interface": "eth1",
+          "mac": "aa:c1:ab:32:07:5f",
+          "peer": "a"
+        }
+      }
+    }
+  ]
+}

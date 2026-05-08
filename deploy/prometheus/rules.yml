@@ -1,0 +1,87 @@
+groups:
+  - name: network_alerts
+    interval: 30s
+    rules:
+
+      # ── Host down ──────────────────────────────────────────────────────────
+      - alert: HostDown
+        expr: network_up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Host {{ $labels.target }} is unreachable"
+          description: >
+            The target {{ $labels.target }} has been unreachable for more than 1 minute.
+
+      # ── High latency ───────────────────────────────────────────────────────
+      - alert: HighLatency
+        expr: network_latency_ms > 100
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High latency to {{ $labels.target }}"
+          description: >
+            RTT to {{ $labels.target }} is {{ $value | printf "%.1f" }} ms
+            (threshold: 100 ms).
+
+      # ── Packet loss ────────────────────────────────────────────────────────
+      - alert: PacketLoss
+        expr: network_packet_loss > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Packet loss on {{ $labels.target }}"
+          description: >
+            Packet loss to {{ $labels.target }} is {{ $value | printf "%.1f" }}%
+            (threshold: 10%).
+
+      # ── High jitter ────────────────────────────────────────────────────────
+      - alert: HighJitter
+        expr: network_jitter_ms > 20
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High jitter to {{ $labels.target }}"
+          description: >
+            Jitter to {{ $labels.target }} is {{ $value | printf "%.1f" }} ms
+            (threshold: 20 ms). Possible network instability.
+
+      # ── Interface errors ───────────────────────────────────────────────────
+      - alert: InterfaceErrors
+        expr: rate(iface_rx_errors_total[5m]) > 1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Interface {{ $labels.iface }} receiving errors"
+          description: >
+            Interface {{ $labels.iface }} error rate is
+            {{ $value | printf "%.2f" }} errors/sec.
+
+      # ── Interface drops ────────────────────────────────────────────────────
+      - alert: InterfaceDrops
+        expr: rate(iface_rx_drops_total[5m]) > 1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Interface {{ $labels.iface }} dropping packets"
+          description: >
+            Interface {{ $labels.iface }} drop rate is
+            {{ $value | printf "%.2f" }} drops/sec.
+
+      # ── TCP port down ──────────────────────────────────────────────────────
+      - alert: TCPPortDown
+        expr: tcp_up == 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "TCP {{ $labels.service }} port down on {{ $labels.target }}"
+          description: >
+            Service {{ $labels.service }} (port {{ $labels.port }}) on
+            {{ $labels.target }} is not reachable.

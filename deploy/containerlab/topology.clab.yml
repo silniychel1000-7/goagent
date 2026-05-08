@@ -1,0 +1,57 @@
+name: netmonr
+mgmt:
+  network: mgmt-net
+  ipv4-subnet: 172.20.20.0/24
+
+topology:
+  nodes:
+    r1:
+      kind: linux
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.11
+      binds:
+        - ./config/r1/frr.conf:/etc/frr/frr.conf
+        - ./config/r1/daemons:/etc/frr/daemons
+      exec:
+        - ip addr add 10.0.12.1/30 dev eth1
+        - ip addr add 10.0.13.1/30 dev eth2
+        - ip addr add 192.168.1.1/24 dev lo
+    r2:
+      kind: linux
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.12
+      binds:
+        - ./config/r2/frr.conf:/etc/frr/frr.conf
+        - ./config/r2/daemons:/etc/frr/daemons
+      exec:
+        - ip addr add 10.0.12.2/30 dev eth1
+        - ip addr add 10.0.23.1/30 dev eth2
+        - ip addr add 192.168.2.1/24 dev lo
+    r3:
+      kind: linux
+      image: frrouting/frr:latest
+      mgmt-ipv4: 172.20.20.13
+      binds:
+        - ./config/r3/frr.conf:/etc/frr/frr.conf
+        - ./config/r3/daemons:/etc/frr/daemons
+      exec:
+        - ip addr add 10.0.13.2/30 dev eth1
+        - ip addr add 10.0.23.2/30 dev eth2
+        - ip addr add 192.168.3.1/24 dev lo
+    agent:
+      kind: linux
+      image: go-agent:latest
+      mgmt-ipv4: 172.20.20.20
+      binds:
+        - ../../configs/config.yaml:/configs/config.yaml:ro
+      ports:
+        - "9100:9100"
+      env:
+        LOG_LEVEL: info
+      exec:
+        - ip addr add 10.0.12.10/30 dev eth1
+  links:
+    - endpoints: ["r1:eth1", "r2:eth1"]
+    - endpoints: ["r1:eth2", "r3:eth1"]
+    - endpoints: ["r2:eth2", "r3:eth2"]
+    - endpoints: ["r1:eth3", "agent:eth1"]

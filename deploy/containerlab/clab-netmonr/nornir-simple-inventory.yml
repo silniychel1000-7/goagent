@@ -1,0 +1,21 @@
+---
+agent:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.20
+r1:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.11
+r2:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.12
+r3:
+    username: 
+    password: 
+    platform: linux
+    hostname: 172.20.20.13
