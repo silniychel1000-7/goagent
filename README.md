@@ -27,7 +27,7 @@ agent/
     ├── alertmanager/              # alertmanager.yml (Telegram)
     └── grafana/                   # Datasource + Dashboard
 scripts/
-└── fault_demo.sh                  # Demo для защиты диплома
+└── fault_demo.sh                  
 ```
 
 ## Метрики
@@ -56,36 +56,6 @@ scripts/
 | InterfaceErrors | `rate(rx_errors[5m]) > 1` | warning |
 | TCPPortDown | `tcp_up == 0` (1 мин) | warning |
 
-## Быстрый старт
-
-### 1. Запуск с Containerlab (полный стек)
-
-```bash
-# Установка Containerlab (если не установлен)
-bash -c "$(curl -sL https://get.containerlab.dev)"
-
-# Запуск топологии
-cd deploy/containerlab
-sudo containerlab deploy -t topology.clab.yml
-
-# Запуск мониторинга
-export TELEGRAM_BOT_TOKEN=<token>
-export TELEGRAM_CHAT_ID=<chat_id>
-docker compose up -d
-```
-
-### 2. Запуск только агента локально
-
-```bash
-sudo go run ./cmd/agent -config configs/config.yaml
-```
-
-### 3. Сборка Docker образа
-
-```bash
-docker build -t go-agent .
-docker run --cap-add NET_RAW -p 9100:9100 go-agent
-```
 
 ## Сервисы
 
@@ -95,26 +65,6 @@ docker run --cap-add NET_RAW -p 9100:9100 go-agent
 | Prometheus | http://localhost:9090 | — |
 | Grafana | http://localhost:3000 | admin / admin |
 | Alertmanager | http://localhost:9093 | — |
-
-## Демо для защиты диплома
-
-```bash
-# Запуск сценария fault injection
-./scripts/fault_demo.sh
-
-# Или вручную:
-# 1. Посмотреть текущее состояние
-curl http://localhost:9100/metrics | grep network_up
-
-# 2. Сломать линк R1-R2
-docker exec clab-netmon-r1 ip link set eth1 down
-
-# 3. Наблюдать в Grafana: packet loss spike, latency rerouting
-# 4. Проверить алерт в Telegram через ~1 мин
-
-# 5. Восстановить
-docker exec clab-netmon-r1 ip link set eth1 up
-```
 
 ## Модель конкурентности
 
@@ -131,11 +81,6 @@ Background goroutine:
     └─ ticker → InterfaceCollector.Collect() + TCPProbe.Probe()
 ```
 
-## Тесты
-
-```bash
-go test ./...
-```
 
 ## Технологический стек
 
