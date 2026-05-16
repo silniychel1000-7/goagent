@@ -91,5 +91,5 @@ Background goroutine:
 | Routing protocol | OSPF (FRR) |
 | Мониторинг | Prometheus |
 | Визуализация | Grafana |
-| Алертинг | Alertmanager + Telegram |
+| Алертинг | Alertmanager + Gmail |
 | Контейнеры | Docker / Compose |
